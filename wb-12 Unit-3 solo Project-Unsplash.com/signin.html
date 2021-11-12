@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #con {
+        width: 90%;
+        /* border:1px solid black; */
+        margin: auto;
+        height: 820px;
+      }
+
+      #boxes {
+        width: 100%;
+        /* border:1px solid green; */
+        /* display: inline-block; */
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px;
+      }
+      .f1 {
+        width: 48%;
+        height: 630px;
+        /* border: 1px solid blue; */
+        display: inline-block;
+        /* border-radius: 10px; */
+        background-color: #eceff1;
+        box-shadow: 10px 15px 5px #eceff1;
+      }
+      .f2 {
+        width: 48%;
+        height: 600px;
+        /* border: 1px solid blue; */
+        display: inline-block;
+      }
+      h1 {
+        text-align: center;
+      }
+      .tetete {
+        font-size: 22px;
+
+        /* margin-top: 30px; */
+      }
+      .ipf {
+        width: 500px;
+        height: 60px;
+      }
+      form {
+        padding: 50px;
+      }
+      .sub {
+        width: 100px;
+        padding: 10px;
+        height: 60px;
+        font-size: 20px;
+        border-radius: 6%;
+        margin-left: 100px;
+        background-color: #ff9100;
+      }
+      form > p {
+        font-size: 19px;
+        margin-top: 14px;
+      }
+
+      /* -------box right side register box */
+      .f2 {
+        height: 630px;
+      }
+      .pra {
+        margin-bottom: 10px;
+        font-family: sans-serif;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="con">
+      <div id="boxes">
+        <div class="f1">
+          <h1>Login</h1>
+
+          <form onsubmit="signin(event)" id="myform1" action="">
+            <h5 class="tetete">Connect with</h5>
+            <span class="gogl"><i class="fab fa-google"></i></span
+            ><br /><br /><br />
+
+            <label for="">Username or Email address</label><br /><br />
+            <input type="text" class="ipf" id="email1" /><br /><br /><br />
+
+            <label for="">Password</label><br /><br />
+            <input
+              type="password"
+              class="ipf"
+              id="password1"
+            /><br /><br /><br />
+
+            <input type="submit" value="Log In" class="sub" /><br /><br />
+
+            <p>Lost Your Password ?</p>
+            <p>Don't have an account ? Sign up</p>
+          </form>
+        </div>
+        <div class="f2">
+          <h1>Register</h1>
+
+          <form onsubmit="signup(event)" id="myform" action="">
+            <p class="pra">
+              Creating an account is quick and easy, and will allow you to move
+              through our checkout quicker.
+            </p>
+
+            <label for="">Email address</label><br /><br />
+            <input type="email" class="ipf" id="email" /><br /><br /><br />
+
+            <label for="">Password</label><br /><br />
+            <input
+              type="password"
+              class="ipf"
+              id="password"
+            /><br /><br /><br />
+
+            <p class="pra">A password will be sent to your email address.</p>
+            <br /><br />
+            <p class="pra">
+              Your Personal data will be used to support your experience
+              throughout this website, to manage access to you account, and for
+              other purposes describes in our privacy policy.
+            </p>
+            <br /><br />
+
+            <input type="submit" class="sub" value="Sign In" /><br /><br />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function signup(e) {
+      e.preventDefault();
+
+      let email = myform.email.value; //here name is id of input type name similarly for all
+      let password = myform.password.value;
+
+      console.log(email, password);
+
+      if (localStorage.getItem("user") === null) {
+        localStorage.setItem("user", JSON.stringify([]));
+      }
+
+      // 1.send user data
+      //if key and value are same then add otherwise no
+      let user = {
+        email,
+        password,
+      };
+
+      // 2.get array from local storage
+
+      let arr = JSON.parse(localStorage.getItem("user"));
+
+      arr.push(user);
+
+      localStorage.setItem("user", JSON.stringify(arr));
+
+      //    let myform = document.getElementById("myform")
+      // myform.reset()
+    }
+
+    function signin(e) {
+      e.preventDefault();
+
+      let myform = document.getElementById("myform1");
+      console.log(myform);
+
+      let email1 = myform.email1.value; //here name is id of input type name similarly for all
+      let password1 = myform.password1.value;
+
+      console.log(email, password);
+
+      let all_user = JSON.parse(localStorage.getItem("user"));
+      //    console.log(all_user)
+
+      all_user.forEach(function (users) {
+        if (email1 === users.email && password1 === users.password) {
+          console.log(email1, users.email);
+          alert("logged in succesffuly");
+          window.location.href = "Home.html";
+        }
+      });
+    }
+  </script>
+</html>
